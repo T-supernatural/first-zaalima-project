@@ -1,0 +1,15 @@
+.venv/
+.runtime/
+__pycache__/
+.ipynb_checkpoints/
+data/*
+!data/README.md
+models/*
+!models/README.md
+reports/*
+!reports/README.md
+*.joblib
+*.csv
+*.zip
+.env
+kaggle.json

@@ -1,0 +1,1 @@
+The notebook generates cross-validation comparisons, held-out test metrics, and run metadata here. No measured results are supplied before execution on the real dataset. Generated files are ignored by Git.

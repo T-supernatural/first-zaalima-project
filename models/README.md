@@ -1,0 +1,1 @@
+Running the complete notebook creates `fraud_pipeline.joblib` here. It contains both training-fitted preprocessing and the selected classifier. No trained model is supplied because the real dataset was absent. Load only trusted Joblib artifacts.
