@@ -1,1 +1,1 @@
-The notebook generates cross-validation comparisons, held-out test metrics, and run metadata here. No measured results are supplied before execution on the real dataset. Generated files are ignored by Git.
+The verified notebook run generated cross-validation comparisons, held-out test metrics, and run metadata here using the actual Kaggle dataset. Generated files are ignored by Git; the README and executed notebook retain the measured comparison for review. The metadata includes the dataset hash, split sizes, selected parameters, package versions and final metrics.

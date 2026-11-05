@@ -4,9 +4,31 @@ A focused reconstruction of a Data Science and Machine Learning internship proje
 
 ## Current status and actual results
 
-The repository originally contained no project files or dataset. The notebook, reusable prediction code and optional Streamlit interface have been implemented. **No real-data training has been performed, no trained artifact is included, and no model scores are claimed.** The dataset must be obtained before training. Python was not available on PATH in the initial environment; runtime verification is reported separately when available.
+The repository originally contained no project files or dataset. The official dataset was downloaded without credentials, and the complete notebook was executed successfully on 5 November 2026 using Python 3.12.10. The executed notebook includes the measured outputs and plots. A trained pipeline and full run reports are available locally in the ignored `models/` and `reports/` folders.
 
-Run the notebook to generate actual CV comparisons, held-out metrics, a confusion matrix, ROC and precision–recall curves, a saved model, and run metadata. Its final selection statement names the selected model using measured CV average precision. No model is declared the winner in advance.
+The dataset contained 284,807 rows, 492 labelled fraud cases and 1,081 exact duplicate rows. After deduplication, the split contained 226,980 training rows and 56,746 test rows, including 95 fraud cases in the test set. Model selection used training cross-validation only.
+
+| Model | Mean CV AP | Test precision | Test recall | Test F1 | Test ROC-AUC | Test AP |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Logistic regression baseline | 0.7543 | 0.0564 | 0.8737 | 0.1059 | 0.9657 | 0.6719 |
+| Decision tree baseline | 0.4463 | 0.0680 | 0.8316 | 0.1257 | 0.9148 | 0.4729 |
+| XGBoost baseline | 0.8057 | 0.3306 | 0.8526 | 0.4765 | 0.9695 | 0.7536 |
+| **Selected tuned XGBoost** | **0.8480** | **0.8172** | **0.8000** | **0.8085** | **0.9764** | **0.8099** |
+
+The selected XGBoost used depth 5, learning rate 0.1 and 150 estimators. At threshold 0.5 it detected 76 fraud cases, missed 19, and flagged 17 legitimate transactions, with 56,634 true negatives. It offers substantially fewer false alerts than these weighted baselines at this threshold, while logistic regression captured more fraud. This makes XGBoost the selected benchmark under the predefined CV AP criterion, rather than establishing universal superiority for every business cost. Tuning and family selection share CV folds, so CV scores are optimistic; test metrics are the independent check.
+
+Verification passed: all notebook cells, Jupyter schema, Python syntax, dependency consistency, estimator cloning, fold-local weight calculation, invalid-input rejection, real-row prediction, missing-value imputation, Joblib reload, CSV inference in a separate process, and Streamlit startup. No full production or browser interaction test is claimed. No required implementation remains incomplete; production evaluation is outside scope.
+
+### Run immediately in this workspace
+
+A portable Python runtime and dependencies were installed locally under ignored `.runtime/` because Python was absent from PATH. From this repository root:
+
+```powershell
+.\.runtime\python\python.exe -m jupyterlab
+.\.runtime\python\python.exe -m streamlit run app.py
+```
+
+Run either command for the desired interface. The portable environment is local to this workspace and is not part of the repository. Use the following standard setup on a fresh clone.
 
 ## Setup (Python 3.11 or 3.12)
 
@@ -65,7 +87,7 @@ After training, create a CSV containing exactly the 30 feature columns (`Time,V1
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-The notebook demonstrates prediction using a genuine held-out row after removing its label, and checks a saved/reloaded pipeline against the in-memory scores. Python callers can use `from src.predict import predict_transactions` with a pandas DataFrame. The output contains `fraud_score` and `prediction`; prediction 1 flags potential fraud, 0 falls below 0.5. Joblib can execute code on load: use only trusted artifacts you trained or obtained from a trusted source.
+The notebook demonstrates prediction using a genuine held-out row after removing its label, and checks a saved/reloaded pipeline against the in-memory scores. Python callers can use `from src.predict import predict_transactions` with a pandas DataFrame. The output contains `fraud_score` and `prediction`; prediction 1 flags potential fraud, 0 falls below 0.5. Joblib can execute code on load: use only trusted artifacts you trained or obtained from a trusted source. In this workspace you can substitute `.\.runtime\python\python.exe` for the `.venv` interpreter in these commands.
 
 ## Files and generated outputs
 
@@ -78,7 +100,7 @@ The notebook demonstrates prediction using a genuine held-out row after removing
 - `reports/test_metrics.json`: measured held-out comparison, including confusion matrices.
 - `reports/run_metadata.json`: selected model, final metrics and reproducibility context.
 
-Notebook outputs may contain real transaction feature values. Review outputs before sharing or committing. Nothing has been committed or pushed as part of this reconstruction.
+Notebook outputs may contain real transaction feature values. Review outputs before sharing or committing. I did not run Git commit or push commands; review the current working tree before publishing.
 
 ## Explaining this project in an interview
 

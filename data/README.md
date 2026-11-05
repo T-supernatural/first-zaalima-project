@@ -1,3 +1,3 @@
-Download the original [Kaggle Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud), accept its terms, extract `creditcard.csv` here. No dataset was present in the inspected workspace.
+Download the original [Kaggle Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud), accept its terms, extract `creditcard.csv` here. No dataset was initially present; the public Kaggle API download was subsequently used to obtain the original file for the verified local run. Both the CSV and archive are available locally and ignored by Git.
 
 The browser download needs no API token in this project. If using Kaggle's CLI, follow Kaggle's credential instructions and keep credentials outside the repository. Never paste tokens in chat. Data and archives are ignored by Git.
